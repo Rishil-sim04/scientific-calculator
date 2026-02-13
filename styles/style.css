@@ -1,0 +1,209 @@
+* {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+.main-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title {
+    margin: 50px auto 0 auto;
+    color: rgb(0, 0, 0);
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.calbox {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 18px;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 5px 10px rgb(161, 161, 161);
+    background-color: rgb(243, 240, 240);
+    border-radius: 10px;
+}
+
+.inp-ans {
+    width: inherit;
+    height: inherit;
+    padding-right: 0px;
+    text-align: right;
+    padding-right: 5px;
+    background-color: rgb(243, 240, 240);
+    font-weight: 400;
+    color: black;
+    font-size: 30px;
+    border: none;
+    overflow-x: visible;
+}
+
+.ansbox {
+    width: inherit;
+    height: 100px;
+}
+
+.second-part {
+    display: flex;
+    width: inherit;
+    height: inherit;
+    gap: 1px;
+    /* border: 1px solid black; */
+}
+
+.btn-second-part, .btn-forth-part {
+    width: 80px;
+    height: inherit;
+    background-color: rgb(243, 240, 240);
+    color: rgb(49, 49, 49);
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+
+.third-part, .fifth-part {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    gap: 1px;
+    justify-content: space-between;
+    /* border: 1px solid black; */
+}
+
+.btn-third-part, .btn-fifth-part {
+    width: 80px;
+    height: inherit;
+    background-color: rgb(243, 240, 240);
+    color: rgb(49, 49, 49);
+    border: none;
+    font-weight: 400;
+    font-size: 16px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+#MC, #MR{
+    color: rgb(138, 138, 138);
+}
+
+
+
+
+.forth-part {
+    margin-left: 10px;
+    display: flex;
+    width: inherit;
+    height: 40px;
+    gap: 50px;
+    /* border: 1px solid black; */
+}
+
+.btn-forth-part {
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(243, 240, 240);
+    color: rgb(49, 49, 49);
+    border: none;
+    font-weight: 400;
+    font-size: 16px;
+    box-sizing: border-box;
+    padding: 3px;
+    margin: 2px;
+}
+
+
+
+
+.fifth-part, .sixth-part, .seven-part, .eight-part, .nine-part, .ten-part, .eleven-part {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    gap: 1px;
+    justify-content: space-between;
+    /* border: 1px solid black; */
+}
+
+.btn-fifth-part, .btn-sixth-part, .btn-seven-part , .btn-eight-part, .btn-nine-part, .btn-ten-part, .btn-eleven-part{
+    width: 80px;
+    height: fit-content;
+    box-shadow: 0 5px 10px rgb(226, 225, 225);
+    background-color: rgb(245, 244, 244);
+    color: rgb(49, 49, 49);
+    border: none;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 10px;
+}
+
+
+.lightback{
+    background-color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+
+
+.trig-container {
+    position: relative;
+    display: inline-block;
+}
+
+
+.trig-dropdown {
+    display: none;  
+    position: absolute;  
+    background-color: white;
+    min-width: 100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;  
+    padding: 5px;
+    top: 100%; 
+    left: 0;
+    margin-top: 2px;
+}
+
+.trig-container:hover .trig-dropdown {
+    display: block;  
+}
+
+.trig-option {
+    display: block; 
+    width: 100%;
+    padding: 8px 16px;
+    background-color: rgb(245, 244, 244);
+    color: rgb(49, 49, 49);
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 3px;
+    margin-bottom: 2px;  
+}
+
+.trig-option:last-child {
+    margin-bottom: 0;
+}
+
+.trig-option:hover {
+    background-color: rgb(140, 186, 255);
+}
+
+
+@media screen and (max-width : 576px) {
+    .title {
+        font-size: 30px;
+        margin: 10px auto 0 auto;
+    }
+}
+
+button:hover{
+    background-color: rgb(140, 186, 255);
+}

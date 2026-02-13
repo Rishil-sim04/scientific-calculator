@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="scripts/script.js" defer></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+
+</head>
+
+<body class="bg-light">
+
+    <div class="container-fluid ">
+        <div class="main-box">
+            <div class="title">Calculator</div>
+
+
+            <!-- Calculator -->
+            <div class="calbox">
+
+                <div class="ansbox">
+                    <input type="text" class="inp-ans" id="ans" placeholder="0" readonly>
+                </div>
+
+                <div class="second-part">
+                    <button class="btn-second-part" id="DEG">DEG</button>
+                    <button class="btn-second-part" id="FE">F-E</button>
+                </div>
+
+                <div class="third-part">
+                    <button class="btn-third-part" id="MC">MC</button>
+                    <button class="btn-third-part" id="MR">MR</button>
+                    <button class="btn-third-part" id="M+">M+</button>
+                    <button class="btn-third-part" id="M-">M-</button>
+                    <button class="btn-third-part" id="MS">MS</button>
+                </div>
+
+                
+                <div class="forth-part">
+                    <div class="trig-container">
+                        <button class="btn-forth-part" id="Trogonometry">Trigonometry</button>
+                        <div class="trig-dropdown">
+                            <button class="trig-option" id="sin-btn">sin</button>
+                            <button class="trig-option" id="cos-btn">cos</button>
+                            <button class="trig-option" id="tan-btn">tan</button>
+                        </div>
+                    </div>
+                    <button class="btn-forth-part" id="Function">Function</button>
+                </div>
+
+                <div class="fifth-part">
+                    <button class="btn-fifth-part" id="2nd">2<sup>nd</sup></button>
+                    <button class="btn-fifth-part" id="pi">&pi;</button>
+                    <button class="btn-fifth-part" id="5e">e</button>
+                    <button class="btn-fifth-part" id="clear" onclick="Cleardisplay()">C</button>
+                    <button class="btn-fifth-part" id="backspace" onclick="removeone()">&#9003;</button>
+                </div>
+
+                <div class="sixth-part">
+                    <button class="btn-sixth-part" id="x2">X<sup>2</sup></button>
+                    <button class="btn-sixth-part" id="1x">1<sub>X</sub></button>
+                    <button class="btn-sixth-part" id="x">|X|</button>
+                    <button class="btn-sixth-part" id="exp">exp</button>
+                    <button class="btn-sixth-part" id="mod">mod</button>
+                </div>
+
+                <div class="seven-part">
+                    <button class="btn-seven-part" id="squareroot"><sup>2</sup>&radic;x</button>
+                    <button class="btn-seven-part" id="leftpara" onclick="addtodisplay('leftpara')">&lpar;</button>
+                    <button class="btn-seven-part" id="rightpara" onclick="addtodisplay('rightpara')">&rpar;</button>
+                    <button class="btn-seven-part" id="fact" onclick="addtodisplay('!')">n&excl;</button>
+                    <button class="btn-seven-part" id="devide" onclick="addtodisplay('/')">&divide;</button>
+                </div>
+
+                <div class="eight-part">
+                    <button class="btn-eight-part" id="square">x<sup>y</sup></button>
+                    <button class="btn-eight-part lightback" id="seven" onclick="addtodisplay('7')">7</button>
+                    <button class="btn-eight-part lightback" id="eight" onclick="addtodisplay('8')">8</button>
+                    <button class="btn-eight-part lightback" id="nine" onclick="addtodisplay('9')">9</button>
+                    <button class="btn-eight-part" id="multiply" onclick="addtodisplay('*')">&times;</button>
+                </div>
+
+                <div class="nine-part">
+                    <button class="btn-nine-part" id="tensquare">10<sup>x</sup></button>
+                    <button class="btn-nine-part lightback" id="four" onclick="addtodisplay('4')">4</button>
+                    <button class="btn-nine-part lightback" id="five" onclick="addtodisplay('5')">5</button>
+                    <button class="btn-nine-part lightback" id="six" onclick="addtodisplay('6')">6</button>
+                    <button class="btn-nine-part" id="sunstract" onclick="addtodisplay('-')">&minus;</button>
+                </div>
+
+                <div class="ten-part">
+                    <button class="btn-ten-part" id="log">log</button>
+                    <button class="btn-ten-part lightback" id="one" onclick="addtodisplay('1')">1</button>
+                    <button class="btn-ten-part lightback" id="two" onclick="addtodisplay('2')">2</button>
+                    <button class="btn-ten-part lightback" id="three" onclick="addtodisplay('3')">3</button>
+                    <button class="btn-ten-part" id="addition" onclick="addtodisplay('+')">&plus;</button>
+                </div>
+
+                <div class="eleven-part">
+                    <button class="btn-eleven-part" id="in">In</button>
+                    <button class="btn-eleven-part lightback" id="negpos"><sup>&plus;</sup>/<sub>&minus;</sub></button>
+                    <button class="btn-eleven-part lightback" id="two" onclick="addtodisplay('0')">0</button>
+                    <button class="btn-eleven-part lightback" id="three" onclick="addtodisplay('.')">&dot;</button>
+                    <button class="btn-eleven-part" id="equal" onclick="calculate()">&equals;</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
