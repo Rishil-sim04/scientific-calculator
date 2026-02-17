@@ -1,39 +1,3 @@
-// const ans = document.getElementById("ans");
-// let exp = [];
-
-// function Cleardisplay() {
-//     ans.value = "";
-//     exp = [];
-// }
-
-// function addtodisplay(num) {
-//     if (num == "leftpara"){ exp.push("("); ans.value += "(";}
-//     else if (num == "rightpara"){ exp.push(")"); ans.value += ")";}
-//     else {
-//         exp.push(num);
-//         ans.value += num;
-//     }
-// }
-
-// function calculate() {
-//     try {
-//         console.log(exp);
-//         ans.value = eval(exp.join(""));
-//         exp = ans.value.split("");
-//         console.log(exp);
-//     } catch (Error) {
-//         ans.value = "Invalid Expression";
-//     }
-// }
-
-// function removeone() {
-//     exp.pop();
-//     ans.value = exp.join("");
-// }
-
-
-
-
 const allcalculator = {
     isvalidnum: function (num) {
         return !isNaN(num) && isFinite(num);
@@ -50,14 +14,168 @@ const allcalculator = {
 };
 
 
+class ExpressionEvaluator {
+    constructor() {
+        this.precedence = {
+            '+': 1,
+            '-': 1,
+            '*': 2,
+            '/': 2,
+            '%': 2,
+            '**': 3
+        };
+    }
+
+    isOperator(char) {
+        return ['+', '-', '*', '/', '%', '**'].includes(char);
+    }
+
+    tokenize(expression) {
+        const tokens = [];
+        let currentNumber = '';
+
+        for (let i = 0; i < expression.length; i++) {
+            const char = expression[i];
+
+            if (char === '*' && expression[i + 1] === '*') {
+                if (currentNumber) {
+                    tokens.push(currentNumber);
+                    currentNumber = '';
+                }
+                tokens.push('**');
+                i++; 
+                continue;
+            }
+
+            if (!isNaN(char) || char === '.') {
+                currentNumber += char;
+            }
+            else if (this.isOperator(char)) {
+                if (currentNumber) {
+                    tokens.push(currentNumber);
+                    currentNumber = '';
+                }
+                tokens.push(char);
+            }
+            else if (char === '(' || char === ')') {
+                if (currentNumber) {
+                    tokens.push(currentNumber);
+                    currentNumber = '';
+                }
+                tokens.push(char);
+            }
+            else if (char === ' ') {
+                if (currentNumber) {
+                    tokens.push(currentNumber);
+                    currentNumber = '';
+                }
+            }
+        }
+
+        if (currentNumber) {
+            tokens.push(currentNumber);
+        }
+
+        return tokens;
+    }
+
+    toRPN(tokens) {
+        const output = []; 
+        const operators = [];  
+
+        for (let token of tokens) {
+            if (!isNaN(token)) {
+                output.push(parseFloat(token));
+            }
+            else if (token === '(') {
+                operators.push(token);
+            }
+            else if (token === ')') {
+                while (operators.length > 0 && operators[operators.length - 1] !== '(') {
+                    output.push(operators.pop());
+                }
+                operators.pop(); 
+            }
+            else if (this.isOperator(token)) {
+                while (
+                    operators.length > 0 &&
+                    this.isOperator(operators[operators.length - 1]) &&
+                    this.precedence[operators[operators.length - 1]] >= this.precedence[token]
+                ) {
+                    output.push(operators.pop());
+                }
+                operators.push(token);
+            }
+        }
+
+        while (operators.length > 0) {
+            output.push(operators.pop());
+        }
+
+        return output;
+    }
+
+    evaluateRPN(rpn) {
+        const stack = [];
+
+        for (let token of rpn) {
+            if (typeof token === 'number') {
+                stack.push(token);
+            }
+            else if (this.isOperator(token)) {
+                const b = stack.pop();  
+                const a = stack.pop();  
+
+                let result;
+                switch (token) {
+                    case '+':
+                        result = a + b;
+                        break;
+                    case '-':
+                        result = a - b;
+                        break;
+                    case '*':
+                        result = a * b;
+                        break;
+                    case '/':
+                        if (b === 0) {
+                            throw new Error("Division by zero");
+                        }
+                        result = a / b;
+                        break;
+                    case '%':
+                        result = a % b;
+                        break;
+                    case '**':
+                        result = Math.pow(a, b);
+                        break;
+                }
+
+                stack.push(result);
+            }
+        }
+
+        return stack[0];
+    }
+
+    evaluate(expression) {
+        const tokens = this.tokenize(expression);
+
+        const rpn = this.toRPN(tokens);
+
+        const result = this.evaluateRPN(rpn);
+
+        return result;
+    }
+}
+
 
 class Calculator {
     constructor() {
         this.curexp = [];
-
         this.display = document.getElementById("ans");
+        this.evaluator = new ExpressionEvaluator();
     }
-
 
     clearDisplay() {
         this.curexp = [];
@@ -65,7 +183,6 @@ class Calculator {
     }
 
     addToDisplay(value) {
-
         if (value === "leftpara") {
             this.curexp.push("(");
             this.display.value += "(";
@@ -84,7 +201,6 @@ class Calculator {
         this.curexp.pop();
         this.display.value = this.curexp.join("");
     }
-
 
     square() {
         try {
@@ -225,13 +341,10 @@ class Calculator {
         }
     }
 
-
     sine() {
         try {
             const curval = this.getcurval();
-
             const radians = allcalculator.degToRad(curval);
-
             const result = Math.sin(radians);
             this.displayResult(result);
         } catch (error) {
@@ -242,9 +355,7 @@ class Calculator {
     cos() {
         try {
             const curval = this.getcurval();
-
             const radians = allcalculator.degToRad(curval);
-
             const result = Math.cos(radians);
             this.displayResult(result);
         } catch (error) {
@@ -255,16 +366,13 @@ class Calculator {
     tan() {
         try {
             const curval = this.getcurval();
-
             const radians = allcalculator.degToRad(curval);
-
             const result = Math.tan(radians);
             this.displayResult(result);
         } catch (error) {
             this.handleError("Invalid Input");
         }
     }
-
 
     addPi() {
         this.curexp.push(Math.PI.toString());
@@ -286,7 +394,6 @@ class Calculator {
         }
     }
 
-
     calculate() {
         try {
             const exp = this.curexp.join("");
@@ -295,7 +402,9 @@ class Calculator {
                 return;
             }
 
-            const result = eval(exp);
+            console.log("Expression:", exp);
+
+            const result = this.evaluator.evaluate(exp);
 
             if (!allcalculator.isvalidnum(result)) {
                 this.handleError("Invalid Expression");
@@ -307,7 +416,7 @@ class Calculator {
 
             this.curexp = formresult.toString().split("");
 
-            // console.log("Result:", formresult);
+            console.log("Final Result:", formresult);
         } catch (error) {
             console.error("Calculation error:", error);
             this.handleError("Invalid Expression");
@@ -321,7 +430,7 @@ class Calculator {
             throw new Error("No value to calculate");
         }
 
-        const value = eval(exp);
+        const value = this.evaluator.evaluate(exp);
 
         if (!allcalculator.isvalidnum(value)) {
             throw new Error("Invalid value");
@@ -342,8 +451,6 @@ class Calculator {
             this.clearDisplay();
         }, 2000);
     }
-
-
 
     init() {
         document.getElementById("clear").onclick = () => this.clearDisplay();
@@ -367,25 +474,14 @@ class Calculator {
 
         document.getElementById("negpos").onclick = () => this.toggleSign();
 
-        document.getElementById("sin-btn").onclick = () => {
-            this.sine();
-        };
-
-        document.getElementById("cos-btn").onclick = () => {
-            this.cos();
-        };
-
-        document.getElementById("tan-btn").onclick = () => {
-            this.tan();
-        };
-
+        document.getElementById("sin-btn").onclick = () => this.sine();
+        document.getElementById("cos-btn").onclick = () => this.cos();
+        document.getElementById("tan-btn").onclick = () => this.tan();
     }
 }
 
 
-
 const calculator = new Calculator();
-
 calculator.init();
 
 function Cleardisplay() {
